@@ -1,0 +1,20 @@
+Hotel(id, nome, cidade)
+quartos(id, hotel_id)
+reservas(quartos_id, mês)
+
+CREATE TABLE tbl_hotelsRoom
+(
+	Id int NOT NULL,
+	Hotel_Id int NOT NULL,
+	Disabled SET DEFAULT false,
+	CONSTRAINT PK_hotelsRoom PRIMARY KEY(Id),
+	CONSTRAINT FK_hotels FOREIGN KEY(Hotel_Id) REFERENCES tbl_hotels(Id)
+);
+
+CREATE TABLE tbl_hotels
+(
+	Id int NOT NULL,
+	Name varchar(255) NOT NULL,
+	City varchar(50) NOT NULL,
+	PRIMARY KEY (Id)
+);

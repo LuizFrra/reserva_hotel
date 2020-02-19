@@ -1,4 +1,4 @@
-package org.voo.api.models;
+package org.hotel.api.Models;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -42,8 +42,8 @@ public class HotelRoom {
         }
 
         if (!booked) {
-           BookRoom bookRoom = new BookRoom(0, this.Id, month);
-           return bookRoomList.add(bookRoom);
+            BookRoom bookRoom = new BookRoom(0, this.Id, month);
+            return bookRoomList.add(bookRoom);
         }
 
         return false;

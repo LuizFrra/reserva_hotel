@@ -1,4 +1,4 @@
-package org.voo.api.models;
+package org.hotel.api.Models;
 
 import java.util.ArrayList;
 import java.util.Iterator;

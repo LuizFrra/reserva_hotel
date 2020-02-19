@@ -1,4 +1,4 @@
-package org.voo.api.models;
+package org.hotel.api.Models;
 
 public class BookRoom {
 

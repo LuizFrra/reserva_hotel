@@ -2,19 +2,37 @@ Hotel(id, nome, cidade)
 quartos(id, hotel_id)
 reservas(quartos_id, mês)
 
-CREATE TABLE tbl_hotelsRoom
-(
-	Id int NOT NULL,
-	Hotel_Id int NOT NULL,
-	Disabled SET DEFAULT false,
-	CONSTRAINT PK_hotelsRoom PRIMARY KEY(Id),
-	CONSTRAINT FK_hotels FOREIGN KEY(Hotel_Id) REFERENCES tbl_hotels(Id)
+CREATE TABLE tbl_cities (
+	Id SERIAL NOT NULL,
+	Name varchar(255) NOT NULL,
+	CONSTRAINT PK_cities PRIMARY KEY (Id)
 );
 
 CREATE TABLE tbl_hotels
 (
-	Id int NOT NULL,
+	Id SERIAL,
 	Name varchar(255) NOT NULL,
-	City varchar(50) NOT NULL,
-	PRIMARY KEY (Id)
+	City_Id int NOT NULL,
+	CONSTRAINT PK_hotels PRIMARY KEY (Id),
+	CONSTRAINT FK_cities FOREIGN KEY(City_Id) REFERENCES tbl_cities(Id)
+);
+
+
+CREATE TABLE tbl_hotelsRoom
+(
+	Id SERIAL,
+	Hotel_Id int NOT NULL,
+	Disabled boolean DEFAULT false,
+	CONSTRAINT PK_hotelsRoom PRIMARY KEY(Id),
+	CONSTRAINT FK_hotels FOREIGN KEY(Hotel_Id) REFERENCES tbl_hotels(Id)
+);
+
+
+CREATE TABLE public.tbl_bookroom
+(
+    id SERIAL,
+    hotelsroomid integer NOT NULL,
+    "Month" integer NOT NULL,
+    CONSTRAINT tbl_bookroom_pkey PRIMARY KEY (id),
+    CONSTRAINT fk_hotelsroom FOREIGN KEY (hotelsroomid) REFERENCES public.tbl_hotelsroom (id)
 );

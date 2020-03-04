@@ -10,18 +10,15 @@ public class Hotel {
 
     private String Name;
 
-    private String City;
+    private int City;
 
     private List<HotelRoom> hotelRoomList;
 
-    public Hotel(int Id, String Name, String City) throws Exception {
+    public Hotel(int Id, String Name, int City) throws Exception {
         this.Id = Id;
 
         if(Name.length() > 255)
             throw new Exception("Name Out Of Length");
-
-        if(City.length() > 255)
-            throw new Exception("City Out Of Length");
 
         this.Name =  Name;
         this.City = City;
@@ -71,5 +68,5 @@ public class Hotel {
 
     public String getName() { return this.Name; }
 
-    public String getCity() { return this.City; }
+    public int getCity() { return this.City; }
 }

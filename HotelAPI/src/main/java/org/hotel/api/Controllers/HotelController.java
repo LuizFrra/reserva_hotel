@@ -1,7 +1,7 @@
 package org.hotel.api.Controllers;
 
-import org.hotel.api.EntitiesDAO.CityDAO;
-import org.hotel.api.Models.City;
+import org.hotel.api.EntitiesDAO.HotelDAO;
+import org.hotel.api.Models.Hotel;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -10,19 +10,19 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
-public class CityController {
+public class HotelController {
 
-    private CityDAO cityDAO;
+    private HotelDAO hotelDAO;
 
-    public CityController(CityDAO cityDAO) {
-        this.cityDAO = cityDAO;
+    public HotelController(HotelDAO hotelDAO) {
+        this.hotelDAO = hotelDAO;
     }
 
-    @RequestMapping(value = {"city/add"}, method = RequestMethod.POST)
-    public Object add(@RequestBody City city, HttpServletResponse response) throws Exception {
-        City result = null;
+    @RequestMapping(value = {"hotel/add"}, method = RequestMethod.POST)
+    public Object AddHotel(@RequestBody Hotel hotel, HttpServletResponse response) throws Exception {
+        Hotel result = null;
         try {
-            result = cityDAO.AddCity(city);
+            result = hotelDAO.AddHotel(hotel);
         } catch (Exception e) {
             response.setStatus(409);
             return e.getMessage();
@@ -30,5 +30,4 @@ public class CityController {
         response.setStatus(201);
         return result;
     }
-
 }

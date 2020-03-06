@@ -35,4 +35,10 @@ public class HotelRoomDAO {
 
         return new HotelRoom((int)keyHolder.getKey(), hotelRoom.getHotelId(), false);
     }
+
+    public boolean hotelRoomExist(int hotelRoomId) {
+        String query =  "SELECT COUNT(*) FROM tbl_hotelsroom WHERE id = ?;";
+        Integer result = jdbcTemplate.queryForObject(query, new Object[] { hotelRoomId }, Integer.class);
+        return result == 1;
+    }
 }

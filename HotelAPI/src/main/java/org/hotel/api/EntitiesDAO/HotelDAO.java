@@ -78,7 +78,6 @@ public class HotelDAO {
     public boolean HotelExistById(int hotelId) {
         String query =  "SELECT COUNT(*) FROM tbl_hotels WHERE id = ?";
         Integer result = jdbcTemplate.queryForObject(query, new Object[]{ hotelId }, Integer.class);
-        log.info("==============" + result);
         return result == 1;
     }
 

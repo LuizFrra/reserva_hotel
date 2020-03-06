@@ -1,5 +1,7 @@
 package org.hotel.api.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -18,7 +20,7 @@ public class HotelRoom {
 
     public HotelRoom(int Id, int HotelId, boolean Disabled) {
         this.Id = Id;
-        this.HotelId = Id;
+        this.HotelId = HotelId;
         this.Disabled = Disabled;
         bookRoomList = new ArrayList<BookRoom>();
     }

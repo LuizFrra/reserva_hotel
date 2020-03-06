@@ -1,11 +1,11 @@
 package org.hotel.api.Models;
 
 public class BookRoom {
-
+    
     private int Id;
 
     private int HotelRoomId;
-
+    
     private EMonth Month;
 
     public BookRoom(int Id, int HotelRoomId, EMonth Month){

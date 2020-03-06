@@ -1,5 +1,7 @@
 package org.hotel.api.EntitiesDAO;
 
+import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.hotel.api.Models.City;
 import org.hotel.api.Models.Hotel;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -14,8 +16,12 @@ import org.springframework.stereotype.Component;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Component
+@Slf4j
 public class HotelDAO {
 
     private JdbcTemplate jdbcTemplate;
@@ -67,5 +73,27 @@ public class HotelDAO {
             return null;
         }
         return hotel;
+    }
+
+    public boolean HotelExistById(int hotelId) {
+        String query =  "SELECT COUNT(*) FROM tbl_hotels WHERE id = ?";
+        Integer result = jdbcTemplate.queryForObject(query, new Object[]{ hotelId }, Integer.class);
+        log.info("==============" + result);
+        return result == 1;
+    }
+
+    public List<Hotel> GetAllHotelsFromCity(int cityId) throws Exception {
+
+        String query = "SELECT * FROM tbl_hotels WHERE city_id = ?;";
+        List<Map<String, Object>> rows =  jdbcTemplate.queryForList(query, cityId);
+        List<Hotel> hotels = new ArrayList<>();
+
+        for(Map row : rows) {
+            int hotelId = (int)row.get("id");
+            String hotelName = (String)row.get("name");
+            Hotel hotel = new Hotel(hotelId, hotelName, cityId);
+            hotels.add(hotel);
+        }
+        return hotels;
     }
 }

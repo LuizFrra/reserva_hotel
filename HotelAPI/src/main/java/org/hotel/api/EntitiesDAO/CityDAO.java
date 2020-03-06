@@ -2,6 +2,7 @@ package org.hotel.api.EntitiesDAO;
 
 import com.fasterxml.jackson.databind.deser.impl.BeanPropertyMap;
 import org.hotel.api.Models.City;
+import org.hotel.api.Models.Hotel;
 import org.springframework.context.annotation.Bean;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -90,4 +91,5 @@ public class CityDAO {
         }
         return city;
     }
+
 }

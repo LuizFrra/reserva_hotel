@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
+@RequestMapping(value = "city")
 public class CityController {
 
     private CityDAO cityDAO;
@@ -18,7 +19,7 @@ public class CityController {
         this.cityDAO = cityDAO;
     }
 
-    @RequestMapping(value = {"city/add"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"add"}, method = RequestMethod.POST)
     public Object add(@RequestBody City city, HttpServletResponse response) throws Exception {
         City result = null;
         try {

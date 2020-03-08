@@ -1,7 +1,9 @@
 package org.hotel.api.Controllers;
 
+import org.hotel.api.EntitiesDAO.BookRoomDAO;
 import org.hotel.api.EntitiesDAO.HotelDAO;
 import org.hotel.api.EntitiesDAO.HotelRoomDAO;
+import org.hotel.api.Models.BookRoom;
 import org.hotel.api.Models.Hotel;
 import org.hotel.api.Models.HotelRoom;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +17,11 @@ public class HotelController {
 
     private HotelDAO hotelDAO;
     private HotelRoomDAO hotelRoomDAO;
-    public HotelController(HotelDAO hotelDAO, HotelRoomDAO hotelRoomDAO) {
+    private BookRoomDAO bookRoomDAO;
+    public HotelController(HotelDAO hotelDAO, HotelRoomDAO hotelRoomDAO, BookRoomDAO bookRoomDAO) {
         this.hotelRoomDAO = hotelRoomDAO;
         this.hotelDAO = hotelDAO;
+        this.bookRoomDAO = bookRoomDAO;
     }
 
     @RequestMapping(value = {"add"}, method = RequestMethod.POST)
@@ -64,4 +68,16 @@ public class HotelController {
         return result;
     }
 
+    @RequestMapping(value = "bookroom", method = RequestMethod.POST)
+    public Object BookRoom(@RequestBody BookRoom bookRoom, HttpServletResponse response) throws Exception {
+        BookRoom result = null;
+        try {
+            result = bookRoomDAO.AddBook(bookRoom);
+        } catch (Exception e) {
+            response.setStatus(409);
+            return e.getMessage();
+        }
+        response.setStatus(201);
+        return bookRoom;
+    }
 }

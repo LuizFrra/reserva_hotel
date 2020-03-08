@@ -5,9 +5,11 @@ import org.hotel.api.Models.HotelRoom;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Component;
 
 import java.sql.PreparedStatement;
 
+@Component
 public class BookRoomDAO {
 
     private JdbcTemplate jdbcTemplate;
@@ -19,11 +21,11 @@ public class BookRoomDAO {
     }
 
     public BookRoom AddBook(BookRoom bookRoom) throws Exception {
-        String query = "SELECT COUNT(*) FROM tbl_bookroom WHERE hotelsroomid = ? AND month = ?;";
-        Integer count = jdbcTemplate.queryForObject(query, new Object[] { bookRoom.getHotelRoomId(), bookRoom.getMonth()},
-                Integer.class);
 
-        if(count == 1)
+        if(!hotelRoomDAO.hotelRoomExist(bookRoom.getHotelRoomId()))
+            throw new Exception("Hotel Room Doesn't Exist.");
+
+        if(RoomIsBooked(bookRoom))
             throw new Exception("Room Already Booked");
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -36,6 +38,18 @@ public class BookRoomDAO {
         }, keyHolder);
 
         return new BookRoom((int)keyHolder.getKey(), bookRoom.getHotelRoomId(), bookRoom.getMonth());
+    }
+
+    public boolean RoomIsBooked(BookRoom bookRoom) {
+        String query = "SELECT COUNT(*) FROM tbl_bookroom WHERE hotelsroomid = ? AND month = ?;";
+        Integer count = jdbcTemplate.queryForObject(query, new Object[] { bookRoom.getHotelRoomId(),
+                        bookRoom.getMonth().ordinal()},
+                Integer.class);
+
+        if(count == null)
+            return false;
+
+        return count == 1;
     }
 
 }

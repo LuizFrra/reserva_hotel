@@ -1,5 +1,6 @@
 package org.hotel.api.Controllers;
 
+import lombok.extern.slf4j.Slf4j;
 import org.hotel.api.EntitiesDAO.BookRoomDAO;
 import org.hotel.api.EntitiesDAO.HotelDAO;
 import org.hotel.api.EntitiesDAO.HotelRoomDAO;
@@ -78,6 +79,19 @@ public class HotelController {
             return e.getMessage();
         }
         response.setStatus(201);
-        return bookRoom;
+        return result;
+    }
+
+    @RequestMapping(value = "booksfromroom/{roomId}", method = RequestMethod.GET)
+    public Object BooksFromRoom(@PathVariable(name = "roomId", required = true)int roomId, HttpServletResponse response) {
+        List<BookRoom> booksRoom =  bookRoomDAO.BooksFromRoom(roomId);
+
+        if(!booksRoom.isEmpty()) {
+            response.setStatus(200);
+            return booksRoom;
+        }
+
+        response.setStatus(204);
+        return null;
     }
 }

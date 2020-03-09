@@ -1,5 +1,7 @@
 package org.hotel.api.Models;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 public class BookRoom {
     
     private int Id;
@@ -14,10 +16,12 @@ public class BookRoom {
         this.Month = Month;
     }
 
-    public int getId() { return this.Id; }
+    public int getId() {
+        return this.Id;
+    }
 
     public int getHotelRoomId() { return this.HotelRoomId; }
 
-    public EMonth getMonth() { return this.Month; }
+    public EMonth getMonth() { return Month; }
 
 }

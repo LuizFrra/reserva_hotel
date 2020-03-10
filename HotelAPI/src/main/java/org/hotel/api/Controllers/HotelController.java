@@ -19,6 +19,7 @@ public class HotelController {
     private HotelDAO hotelDAO;
     private HotelRoomDAO hotelRoomDAO;
     private BookRoomDAO bookRoomDAO;
+
     public HotelController(HotelDAO hotelDAO, HotelRoomDAO hotelRoomDAO, BookRoomDAO bookRoomDAO) {
         this.hotelRoomDAO = hotelRoomDAO;
         this.hotelDAO = hotelDAO;
@@ -93,5 +94,20 @@ public class HotelController {
 
         response.setStatus(204);
         return null;
+    }
+
+    @RequestMapping(value = "room/{roomId}", method = RequestMethod.GET)
+    public Object RoomById(@PathVariable(name = "roomId")int roomId, HttpServletResponse response) throws Exception {
+
+        HotelRoom hotelRoom = null;
+        try {
+            hotelRoom = hotelRoomDAO.HotelRoomById(roomId);
+        } catch (Exception e) {
+            response.setStatus(400);
+            return e.getMessage();
+        }
+
+        response.setStatus(200);
+        return hotelRoom;
     }
 }

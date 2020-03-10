@@ -33,7 +33,7 @@ public class HotelRoom {
         this.Disabled = false;
     }
 
-    public boolean BookARoom(EMonth month) {
+    public boolean BookARoom(int bookRoomId, EMonth month) {
         boolean booked = false;
         Iterator<BookRoom> bookRoomIterator = bookRoomList.iterator();
 
@@ -44,7 +44,7 @@ public class HotelRoom {
         }
 
         if (!booked) {
-            BookRoom bookRoom = new BookRoom(0, this.Id, month);
+            BookRoom bookRoom = new BookRoom(bookRoomId, this.Id, month);
             return bookRoomList.add(bookRoom);
         }
 
@@ -52,12 +52,10 @@ public class HotelRoom {
     }
 
     public List<Integer> getAvailableMonths() {
-        List<Integer> availableMonths = $(1, 13).toList();
-        Iterator<BookRoom> bookRoomIterator = bookRoomList.iterator();
+        List<Integer> availableMonths = $(0, 12).toList();
 
-        while (bookRoomIterator.hasNext()) {
-            BookRoom bookRoom = bookRoomIterator.next();
-            availableMonths.remove(bookRoom.getMonth().ordinal());
+        for (BookRoom bookRoom : bookRoomList) {
+            availableMonths.remove((Integer)bookRoom.getMonth().ordinal());
         }
         return availableMonths;
     }

@@ -1,9 +1,11 @@
 package org.hotel.api.EntitiesDAO;
 
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.hotel.api.Models.BookRoom;
 import org.hotel.api.Models.EMonth;
 import org.hotel.api.Models.HotelRoom;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -20,16 +22,18 @@ import java.util.Map;
 public class BookRoomDAO {
 
     private JdbcTemplate jdbcTemplate;
+
+    @Setter
+    @Autowired
     private HotelRoomDAO hotelRoomDAO;
 
-    public BookRoomDAO(JdbcTemplate jdbcTemplate, HotelRoomDAO hotelRoomDAO) {
+    public BookRoomDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
-        this.hotelRoomDAO = hotelRoomDAO;
     }
 
     public BookRoom AddBook(BookRoom bookRoom) throws Exception {
 
-        if(!hotelRoomDAO.hotelRoomExist(bookRoom.getHotelRoomId()))
+        if(!hotelRoomDAO.HotelRoomExist(bookRoom.getHotelRoomId()))
             throw new Exception("Hotel Room Doesn't Exist.");
 
         if(RoomIsBooked(bookRoom))

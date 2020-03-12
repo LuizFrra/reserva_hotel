@@ -13,7 +13,9 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class CityDAO {
@@ -90,6 +92,22 @@ public class CityDAO {
             city = null;
         }
         return city;
+    }
+
+    public List<City> GetAllCities() throws Exception {
+
+        List<Map<String,Object>> rows =  jdbcTemplate.queryForList("SELECT * FROM tbl_cities;");
+        List<City> cities = new ArrayList<City>();
+
+        try {
+            for(Map<String, Object> row : rows) {
+                cities.add(new City((int)row.get("id"), (String)row.get("name")));
+            }
+        } catch (Exception e) {
+            throw new Exception("Problem while get Cities.");
+        }
+
+        return cities;
     }
 
 }

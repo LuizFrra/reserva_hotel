@@ -95,4 +95,22 @@ public class HotelDAO {
         }
         return hotels;
     }
+
+    public Hotel GetHotelById(int id) {
+        String query = "SELECT * FROM tbl_hotels WHERE id = ?;";
+        Hotel hotel = jdbcTemplate.queryForObject(query, new Object[]{id}, new RowMapper<Hotel>() {
+            @Override
+            public Hotel mapRow(ResultSet rs, int rowNum) throws SQLException {
+                try {
+                    return new Hotel(rs.getInt("id"), rs.getString("name"),
+                                                rs.getInt("city_id"));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+        });
+
+        return hotel;
+    }
 }

@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "hotel")
+@CrossOrigin(origins = {"*"})
 public class HotelController {
 
     private HotelDAO hotelDAO;
@@ -109,5 +110,26 @@ public class HotelController {
 
         response.setStatus(200);
         return hotelRoom;
+    }
+
+    @RequestMapping(value = "/{hotelId}", method = RequestMethod.GET)
+    public Object HotelById(@PathVariable(name="hotelId")int hotelId, HttpServletResponse response) {
+        Hotel hotel = hotelDAO.GetHotelById(hotelId);
+        if(hotel == null) {
+            response.setStatus(204);
+        }
+        return hotel;
+    }
+
+    @RequestMapping(value = "/rooms/{hotelId}", method = RequestMethod.GET)
+    public Object RoomsFromHotel(@PathVariable("hotelId")int hotelId, HttpServletResponse response) {
+        List<HotelRoom> hotelRooms = hotelRoomDAO.GetAllRoomsFromHotel(hotelId);
+
+        if(hotelRooms.isEmpty()){
+            response.setStatus(204);
+            return null;
+        }
+
+        return hotelRooms;
     }
 }

@@ -89,4 +89,17 @@ public class HotelRoomDAO {
         return hotelRoom;
     }
 
+    public List<HotelRoom> GetAllRoomsFromHotel(int hotelId) {
+        String query = "SELECT * FROM tbl_hotelsroom WHERE hotel_id = ?;";
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(query, hotelId);
+
+        List<HotelRoom> hotelRooms = new ArrayList<HotelRoom>();
+
+        for(Map<String, Object> row : rows) {
+            hotelRooms.add(new HotelRoom((Integer)row.get("id"), hotelId, false));
+        }
+
+        return hotelRooms;
+    }
+
 }

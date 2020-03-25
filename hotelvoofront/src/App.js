@@ -16,7 +16,7 @@ class App extends Component {
   }
 
   handleCitySelect(cityId) {
-    this.setState({ cityId: cityId }, () => console.log(this.state.cityId));
+    localStorage.setItem("cityId", cityId);
     this.setState({redirectToHotel: true});
   }
 

@@ -9,21 +9,20 @@ export default class HotelCard extends Component {
 
     constructor(props) {
         super(props);
-        this.onCardClick = this.onCardClick.bind(this);
+        this.handleCardClick = this.handleCardClick.bind(this);
     }
 
-    onCardClick() {
-        console.log(this.props.hotel.id);
+    handleCardClick() {
+        this.props.handleHotelCardClick(this.props.hotel);
     }
 
     render() {
         const imageUrl = "https://picsum.photos/200/300?" + Math.random();
-
         return (
             <Col span={4}>
                 <Card className={"cardComponent"} cover={<img src={imageUrl} alt={"Hotel Card"}/>} 
-                        actions={[<Button onClick={this.onCardClick} shape={"circle"} type={"dashed"} icon={<EditOutlined />} />]}   >
-                    <Meta titlle={this.props.hotel.name} description="A Great Hotel !" />
+                        actions={[<Button onClick={this.handleCardClick} shape={"circle"} type={"dashed"} icon={<EditOutlined />} />]}   >
+                    <Meta title={this.props.hotel.name} description="A Great Hotel !" />
                 </Card>
             </Col>
         )

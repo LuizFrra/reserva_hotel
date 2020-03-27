@@ -5,50 +5,56 @@ import { Checkbox, Row, Col, Divider } from "antd";
 export default class RoomBook extends Component {
     constructor(props) {
         super(props);
-        this.state = { monthsOptions: monthsOptions };
-        console.log(monthsOptions);
+        this.state = { options: [] };
+        this.handleCheckChange = this.handleCheckChange.bind(this);
+    }
+
+    handleCheckChange(checkedValue) {
+        this.props.onSelMonths(checkedValue);
     }
 
     componentDidMount() {
         const room = this.props.room;
-        const monthsOptions = this.state.monthsOptions;
-        const avaibleMonths = room.availableMonths;
-
+        const availableMonths = room.availableMonths;
+        let options = [];
+        
         if (Object.entries(room).length === 0)
             return;
 
-        for (let key in Object.entries(avaibleMonths)) {
-            monthsOptions[avaibleMonths[key]].disabled = false;
+        for(let index in  monthsOptions) {
+            options.push(Object.assign({}, monthsOptions[index]));
         }
 
-        // let checkBoxGroup = [];
+        for (let key in Object.entries(availableMonths)) {
+            options[availableMonths[key]].disabled = false;
+        }   
 
+        let checkBoxGroup = [];
+        for(let index in options) {
+            checkBoxGroup.push(
+                <Col key={index} span={7} offset={1}>
+                    <Checkbox value={options[index].value} disabled={options[index].disabled}>
+                        {options[index].label}
+                    </Checkbox>
+                </Col>
+            );
+        }
 
-        // monthsOptions.splice(0, 12).forEach(res => {
-        //     checkBoxGroup.push(
-        //         <Col key={res.value} span={5} offset={1}>
-        //             <Checkbox value={res.value} disabled={res.disabled}>
-        //                 {res.label}
-        //             </Checkbox>
-        //         </Col>
-        //     );
-        // });
-
-
-        this.setState({ monthsOptions: checkBoxGroup });
+        this.setState({ options: checkBoxGroup });
     }
 
     render() {
-        let months = this.state.monthsOptions;
+        let months = this.state.options;
 
         if (!React.isValidElement(months[0])) {
-            return "";
+            return (<React.Fragment></React.Fragment>);
         }
-
         return (
             <React.Fragment>
                 <Divider> Meses </Divider>
-                <Row>{months}</Row>
+                <Checkbox.Group onChange={this.handleCheckChange} style={{marginLeft: 60}}>
+                    <Row>{months}</Row>
+                </Checkbox.Group>
             </React.Fragment>
         );
     }

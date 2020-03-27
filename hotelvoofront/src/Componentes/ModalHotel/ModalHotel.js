@@ -8,10 +8,15 @@ export default class ModalHotel extends Component {
 
     constructor(props){
         super(props);
-        this.state = { confirmLoading: false, okText: "Ok", selRoom: {}};
+        this.state = { confirmLoading: false, okText: "Ok", selRoom: {}, selMonths: []};
         this.handleModalClose = this.handleModalClose.bind(this);
         this.handleModalOk = this.handleModalOk.bind(this);
         this.handleHotelRoomClick = this.handleHotelRoomClick.bind(this);
+        this.handleSelMonths = this.handleSelMonths.bind(this);
+    }
+
+    handleSelMonths(selMonths) {
+        this.setState({selMonths: selMonths});
     }
 
     handleHotelRoomClick(id) {
@@ -29,7 +34,7 @@ export default class ModalHotel extends Component {
         this.setState({confirmLoading: true, okText:"Processando"});
         setTimeout(() => {
             this.setState({visible: false, confirmLoading: false, okText: "Ok"});
-            this.props.onOk();
+            this.props.onOk(this.state.selRoom, this.state.selMonths);
         }, 2000);
     }
 
@@ -44,7 +49,7 @@ export default class ModalHotel extends Component {
                         onCancel={this.handleModalClose} okText={okText}>
                 
                 <HotelRoom hotelId={hotel.id} onClick={this.handleHotelRoomClick} />
-                <RoomBook key={selRoom.id} room={selRoom} ></RoomBook>
+                <RoomBook key={selRoom.id} room={selRoom} onSelMonths={this.handleSelMonths} ></RoomBook>
             </Modal>
         );
     }

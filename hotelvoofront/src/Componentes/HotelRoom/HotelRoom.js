@@ -35,7 +35,7 @@ export default class HotelRoom extends Component {
                 roomsGrid.push(
                     <Card.Grid style={gridCenter} 
                         key={key}>{"QUARTO " + key}
-                        <Button onClick={this.handleHotelRoomClick} type="dashed" shape="circle" data-index={rooms[key].id}
+                        <Button style={{marginLeft: 10}} onClick={this.handleHotelRoomClick} type="dashed" shape="circle" data-index={rooms[key].id}
                             icon={<BookOutlined/>} /> 
                     </Card.Grid>
                 );

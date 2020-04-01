@@ -13,8 +13,10 @@ repositories {
 }
 
 dependencies {
+
+	implementation group: 'org.projectlombok', name: 'lombok', version: '1.18.12'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc', version: '2.2.4.RELEASE'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.2.6.RELEASE'
 	implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.10'
 	implementation group: 'org.bitbucket.dollar', name: 'dollar', version: '1.0-beta3'
 

@@ -2,21 +2,17 @@ package org.voo.api.controllers;
 
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.voo.api.dto.FlightBookDTO;
-import org.voo.api.dto.FlyCompanyDTO;
 import org.voo.api.models.Airplane;
 import org.voo.api.repositories.AirplaneRepository;
-import org.voo.api.repositories.FlyCompanyRepository;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "flightbook")
+@CrossOrigin(origins = {"*"})
 public class FlightBookController {
 
     @Autowired
@@ -40,5 +36,4 @@ public class FlightBookController {
         response.setStatus(400);
         return "Reserva Máxima Atingida para o voo.";
     }
-
 }

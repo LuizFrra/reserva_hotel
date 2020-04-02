@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "flycompany")
+@CrossOrigin(origins = {"*"})
 public class FlyCompanyController {
 
     @Setter

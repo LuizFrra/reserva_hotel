@@ -17,7 +17,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "airplane")
-@Slf4j
+@CrossOrigin(origins = {"*"})
 public class AirplaneController {
 
     @Autowired

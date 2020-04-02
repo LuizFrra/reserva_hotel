@@ -22,9 +22,8 @@ export default class Hotel extends React.Component {
     }
 
     handleModalOk(roomId, books) {
-        console.log(roomId);
-        console.log(books);
         this.setState({visibleModal: false});
+        this.props.onHotelBook(roomId.id, books);
     }
 
     componentDidMount() {

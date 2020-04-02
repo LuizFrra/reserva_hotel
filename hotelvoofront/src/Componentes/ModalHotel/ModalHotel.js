@@ -33,7 +33,7 @@ export default class ModalHotel extends Component {
     handleModalOk() {
         this.setState({confirmLoading: true, okText:"Processando"});
         setTimeout(() => {
-            this.setState({visible: false, confirmLoading: false, okText: "Ok"});
+            this.setState({confirmLoading: false, okText: "Ok"});
             this.props.onOk(this.state.selRoom, this.state.selMonths);
         }, 2000);
     }

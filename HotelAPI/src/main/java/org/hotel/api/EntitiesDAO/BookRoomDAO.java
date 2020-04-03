@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @Component
+@Slf4j
 public class BookRoomDAO {
 
     private JdbcTemplate jdbcTemplate;
@@ -59,8 +60,8 @@ public class BookRoomDAO {
 
         if(count == null)
             return false;
-
-        return count == 1;
+        log.info("============================================ " + count);
+        return count >= 1;
     }
 
     public List<BookRoom> BooksFromRoom(int roomId) {

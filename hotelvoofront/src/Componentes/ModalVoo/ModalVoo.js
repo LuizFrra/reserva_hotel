@@ -21,12 +21,12 @@ export default class ModalVoo extends Component {
         this.setState({confirmLoading: true, okText:"Processando"});
         setTimeout(() => {
             this.setState({confirmLoading: false, okText: "Ok"});
-            this.props.onOk(this.state.selRoom, this.state.selMonths);
+            this.props.onOk(this.state.selFlight);
         }, 2000);
     }
 
     handleFlightSel(flight, disable) {
-        console.log(flight);
+        //console.log(flight);
         this.setState({selFlight: flight, okDisabled: disable})
     }
 

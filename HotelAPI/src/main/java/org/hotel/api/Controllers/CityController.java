@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "city")
-@CrossOrigin(origins = {"*"})
+//@CrossOrigin(origins = {"*"})
 public class CityController {
 
     private CityDAO cityDAO;

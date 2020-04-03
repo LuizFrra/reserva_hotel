@@ -17,7 +17,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "airplane")
-@CrossOrigin(origins = {"*"})
+@CrossOrigin(origins = {"*"}, methods = { RequestMethod.GET, RequestMethod.POST })
 public class AirplaneController {
 
     @Autowired

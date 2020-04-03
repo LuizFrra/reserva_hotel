@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "hotel")
-@CrossOrigin(origins = {"*"})
+//@CrossOrigin(origins = {"*"}, methods = { RequestMethod.GET, RequestMethod.POST })
 public class HotelController {
 
     private HotelDAO hotelDAO;

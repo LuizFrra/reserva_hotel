@@ -18,8 +18,9 @@ export default class Voo extends Component {
         this.setState({visible: false});
     }
 
-    handleModalOk() {
+    handleModalOk(flight) {
         this.setState({visible: false});
+        this.props.onFLightSel(flight);
     }
 
     handleCompanySelect(companyName) {

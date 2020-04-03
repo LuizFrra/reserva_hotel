@@ -5,6 +5,7 @@ import SearcbBar from '../src/Componentes/SearchBar/SearchBar'
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import Hotel from './Componentes/Hotel/Hotel';
 import Voo from './Componentes/Voo/Voo';
+import Result from './Componentes/ResultPage/ResultPage';
 
 class App extends Component {
   constructor(props) {
@@ -13,11 +14,19 @@ class App extends Component {
       cityId: 0,
       redirectToHotel: false,
       redirectToFly: false,
+      redirectToResult: false,
       selRoomId: -1,
-      selMonths: []
+      selMonths: [],
+      selFlight: ""
     }
     this.handleCitySelect = this.handleCitySelect.bind(this);
     this.handleHotelBook = this.handleHotelBook.bind(this);
+    this.handleFlightSelect = this.handleFlightSelect.bind(this);
+  }
+
+  handleFlightSelect(flight) {
+    localStorage.setItem("flight", flight);
+    this.setState({ redirectToHotel: false, redirectToFly: false,  selFlight: flight, redirectToResult: true });
   }
 
   handleCitySelect(cityId) {
@@ -27,6 +36,7 @@ class App extends Component {
 
   handleHotelBook(roomId, months) {
     localStorage.setItem("months", months);
+    localStorage.setItem("room", roomId);
     this.setState({ redirectToHotel: false, redirectToFly: true, selRoomId: roomId, selMonths: months });
   }
 
@@ -42,8 +52,15 @@ class App extends Component {
 
             <Switch>
 
+              <Route path="/result">
+                <Result months={this.state.selMonths} room={this.state.selRoomId} flight={this.state.selFlight}>
+
+                </Result>
+              </Route>
+
               <Route path="/voo">
-                <Voo months={this.state.selMonths} />
+                {this.state.redirectToResult && <Redirect to="/result" />}
+                <Voo months={this.state.selMonths} onFLightSel={this.handleFlightSelect}/>
               </Route>
 
               <Route path="/hotel">
